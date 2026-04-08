@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,8 +8,11 @@ public class Movimiento : MonoBehaviour
 {
     public float speed = 3;
     public float jumpForce = 5;
+    int pasosI = 0;
+    int pasosD = 0;
 
     Rigidbody2D rb;
+    [SerializeField] TMP_Text Letrero;
 
     void Start()
     {
@@ -16,10 +20,23 @@ public class Movimiento : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+        void FixedUpdate()
     {
-        if (Keyboard.current.aKey.isPressed) rb.linearVelocity = new Vector2(-speed, rb.linearVelocity.y);
-        else if (Keyboard.current.dKey.isPressed) rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
+        if (Keyboard.current.aKey.isPressed)
+        {
+            rb.linearVelocity = new Vector2(-speed, rb.linearVelocity.y);
+            pasosI++;
+            Letrero.text = $"Pasos Izquierda: {pasosI.ToString()} \n paso derecha: {pasosD.ToString()}";
+            Console.WriteLine($"Pasos Izquierda: {pasosI.ToString()} \n paso derecha: {pasosD.ToString()}");
+
+        }
+        else if (Keyboard.current.dKey.isPressed)
+        {
+            rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
+            pasosD++;
+            Letrero.text = $"Pasos Izquierda: {pasosI.ToString()} \n paso derecha: {pasosD.ToString()}";
+            Console.WriteLine($"Pasos Izquierda: {pasosI.ToString()} \n paso derecha: {pasosD.ToString()}");
+        }
         else rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
 
         // Salto
